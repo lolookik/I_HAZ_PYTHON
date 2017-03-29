@@ -1778,7 +1778,7 @@ def get_home_dir():
 	    ###########################################################################
 	    
 	    home = os.getenv('USERPROFILE')
-	    #home = 'C:\Python27\thcompiledir'#edited one
+	    #home = 'C:\Python27\thcompiledir'#edited one #actually not this one
 		
 	    ###########################################################################
 
@@ -1795,7 +1795,7 @@ if sys.platform == 'win32' and os.getenv('LOCALAPPDATA') is not None:
     default_base_compiledir = 'C:\\Python27\\hcompiledir'
 else:
 #    default_base_compiledir = os.path.join(get_home_dir(), '.theano')
-        default_base_compiledir = 'C:\\Python27\\hcompiledir'
+        default_base_compiledir = 'C:\\Python27\\hcompiledir' #for some reason \t is something so removed t
 
 
 AddConfigVar(
