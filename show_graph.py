@@ -1,3 +1,8 @@
+#two lines to have plots appear in QT 
+import matplotlib
+matplotlib.use('Qt4Agg')
+
+ 
 import math
 import numpy as np
 import matplotlib.pyplot as plt
