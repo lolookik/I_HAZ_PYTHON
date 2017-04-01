@@ -1,3 +1,7 @@
+#system settings for plots
+import matplotlib
+matplotlib.use('Qt4Agg')
+ 
 #basic math/plotting imports
 import math
 import numpy as np
