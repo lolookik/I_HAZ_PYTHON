@@ -92,7 +92,7 @@ def forecast_lstm(model, batch_S, X):
 #BEGIN PROG
 #####################################################################
 #load data
-series = read_csv('sales.csv', header=0, parse_dates=[0], index_col=0, squeeze=True, date_parser=fun_date_parser)
+series = read_csv('DEXUSEU.csv', header=0, parse_dates=False, index_col=0, squeeze=True)#, date_parser=fun_date_parser)
 
 #stationarity transformation
 raw_values = series.values
@@ -103,7 +103,8 @@ supervised = timeseries_to_supervised(diff_values, 1)
 super_values = supervised.values
 
 #split data train-test 
-train, test = super_values[0:-12], super_values[-12:]
+split_val = 50
+train, test = super_values[0:-split_val], super_values[-split_val:]
 
 #scale data
 scaler, train_scaled, test_scaled = scale(train, test)
@@ -127,13 +128,17 @@ for i in range(len(test_scaled)):
     print('M = %d   Pred = %f   Exp = %f' % (i+1, yhat, expected))
     
 #evaluation
-epsi = sqrt(mean_squared_error(raw_values[-12:], predictions))
+epsi = sqrt(mean_squared_error(raw_values[-split_val:], predictions))
 print('epsi: %.3f' % epsi)
-pyplot.plot(raw_values[-12:])
+pyplot.plot(raw_values[-split_val:])
 pyplot.plot(predictions)
 pyplot.show()
 
-
+z_vec = numpy.ones(raw_values.shape[0]-split_val)*numpy.mean(raw_values[0])
+pred_vec = numpy.hstack((z_vec, predictions))
+pyplot.plot(raw_values)
+pyplot.plot(pred_vec)
+pyplot.show()
 
 
 print("endscript")
